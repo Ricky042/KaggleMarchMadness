@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "pixi run python scripts/hooks/start_jupyter_server.py"
+      }
+    ]
+  }
+}

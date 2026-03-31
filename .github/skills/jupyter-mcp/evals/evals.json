@@ -1,0 +1,20 @@
+{
+  "skill_name": "jupyter-mcp",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've got Jupyter Lab open. Can you open the notebook at notebooks/jl.baseline_model.ipynb and tell me what cells are in it and what the last output was?",
+      "expected_output": "Agent calls use_notebook to connect, then read_notebook (brief) to list all cells, then read_cell on the last executed cell to retrieve its output. Correctly identifies cell types and the most recent output."
+    },
+    {
+      "id": 2,
+      "prompt": "Create a new notebook at notebooks/jl.seed_analysis.ipynb and add a setup cell that imports polars and loads MNCAATourneySeeds.csv from the mens data directory, then run it.",
+      "expected_output": "Agent calls use_notebook with mode=create, then insert_execute_code_cell with appropriate import and data loading code using relative path ../data/landing/mens/. Cell executes successfully."
+    },
+    {
+      "id": 3,
+      "prompt": "The kernel in my notebook seems stuck — it's been running for ages. Can you restart it and then re-run the first two cells?",
+      "expected_output": "Agent calls restart_notebook, then reads the notebook brief to get cell indices, then calls execute_cell for cells 0 and 1 in sequence. Does not use insert_execute_code_cell since cells already exist."
+    }
+  ]
+}

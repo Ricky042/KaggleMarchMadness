@@ -1,0 +1,20 @@
+{
+  "skill_name": "notebook-ml",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a baseline logistic regression model in notebooks/jl.baseline_model.ipynb that predicts tournament win probability using just seed difference as the feature. Use leave-one-season-out CV and tell me the log-loss.",
+      "expected_output": "Agent creates/opens notebook, loads tourney results and seeds, builds symmetric matchup dataframe (lower TeamID = Team1), computes seed diff feature, trains logistic regression using LeaveOneGroupOut CV grouped by Season, reports mean log-loss. Clips predictions to [0.025, 0.975]."
+    },
+    {
+      "id": 2,
+      "prompt": "I want to add regular season win percentage and point differential as features to my existing model. Can you add those features to the training pipeline and retrain, comparing the new log-loss to the seed-only baseline?",
+      "expected_output": "Agent builds team_season_stats from MRegularSeasonCompactResults.csv, joins to the matchup dataframe, creates diff_win_pct and diff_point_diff features, reruns CV with expanded feature set, prints comparison of log-loss before and after."
+    },
+    {
+      "id": 3,
+      "prompt": "Generate the Stage 1 submission file from my trained model and save it to data/submission.csv. Make sure it matches the SampleSubmissionStage1.csv format exactly.",
+      "expected_output": "Agent loads SampleSubmissionStage1.csv, parses IDs to extract Season/Team1/Team2, builds features for each matchup, generates predictions with the trained model, clips to [0.025, 0.975], saves with correct ID and Pred columns. Prints row count and prediction distribution as a sanity check."
+    }
+  ]
+}

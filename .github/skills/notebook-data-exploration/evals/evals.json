@@ -1,0 +1,20 @@
+{
+  "skill_name": "notebook-data-exploration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to understand the tournament seed data. Can you open notebooks/jl.eda.ipynb (or create it if it doesn't exist) and run some exploratory analysis on MNCAATourneySeeds.csv — I want to know how many teams get seeded each year and whether that's changed over time.",
+      "expected_output": "Agent creates or opens the notebook, loads seeds data with polars, parses seed strings to get numeric seeds, groups by season to count teams, and produces a visualization or table showing the trend. Uses ../data/landing/mens/ path convention."
+    },
+    {
+      "id": 2,
+      "prompt": "How often do upsets happen in the tournament? I mean cases where a higher seed (worse team) beats a lower seed. Can you explore this in a notebook and show me the upset rate by seed matchup?",
+      "expected_output": "Agent loads both tourney results and seeds, joins them, computes upset indicator, produces upset rate by seed pairing (e.g. 5 vs 12, 6 vs 11), and visualises the result. Uses correct seed parsing logic."
+    },
+    {
+      "id": 3,
+      "prompt": "I need a quick data availability check — for every CSV in the mens/ directory, show me which seasons have data and how many rows there are. Just do it right in the notebook.",
+      "expected_output": "Agent writes a cell that iterates through mens_dir.glob('*.csv'), reads each file, checks for a Season column, and prints min/max season and row count. Handles files without a Season column gracefully."
+    }
+  ]
+}

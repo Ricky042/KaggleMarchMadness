@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "JupyterMCP": {
+      "command": "pixi",
+      "args": [
+        "run",
+        "jupyter-mcp-server",
+        "--jupyter-url",
+        "http://localhost:8888",
+        "--jupyter-token",
+        "mm2026"
+      ]
+    }
+  }
+}

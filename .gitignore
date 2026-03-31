@@ -1,0 +1,18 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# Ignore large data files
+data/**
+!data/
+!data/**/
+
+!**/.gitkeep
+
+# Ignore env file
+.env
+
+# Jupyter temporary files
+.jupyter_ystore.db
+.jupyter_cache/
+.ipynb_checkpoints/.jupyter_cache/

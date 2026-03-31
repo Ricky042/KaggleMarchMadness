@@ -1,0 +1,47 @@
+[workspace]
+authors = ["jeremy <jeremyhllau@gmail.com>"]
+channels = ["conda-forge"]
+name = "MM2026"
+platforms = ["win-64", "osx-arm64"]
+version = "0.1.0"
+
+[tasks.ingest_data_into_landing]
+cmd = "kaggle competitions download -c march-machine-learning-mania-2026 -p data/landing"
+
+[tasks.jupyter-status]
+cmd = "jupyter server list"
+
+[tasks.jupyter-open]
+cmd = "python -m webbrowser \"http://localhost:8888/lab?token=mm2026\""
+depends-on = ["jupyter-start"]
+
+[tasks.jupyter-start]
+cmd = "python scripts/hooks/start_jupyter_server.py"
+
+[tasks.jupyter-stop]
+cmd = "jupyter server stop 8888"
+
+[dependencies]
+python = "3.12.*"
+polars = ">=1.37.1,<2"
+ipykernel = ">=7.1.0,<8"
+kaggle = ">=1.8.3,<2"
+python-dotenv = ">=1.2.1,<2"
+pandas = ">=3.0.0,<4"
+matplotlib = ">=3.10.8,<4"
+numpy = ">=2.4.1,<3"
+seaborn = ">=0.13.2,<0.14"
+plotly = ">=6.5.2,<7"
+tqdm = ">=4.67.1,<5"
+scikit-learn = ">=1.8.0,<2"
+xgboost = ">=3.1.3,<4"
+lightgbm = ">=4.6.0,<5"
+pyarrow = ">=23.0.1,<24"
+
+
+[pypi-dependencies]
+jupyter-mcp-server = ">=0.22.1, <0.23"
+jupyterlab = "==4.4.1"
+jupyter-collaboration = "==4.0.2"
+jupyter-mcp-tools = ">=0.1.4"
+datalayer_pycrdt = "==0.12.17"
