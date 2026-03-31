@@ -15,7 +15,7 @@ Kaggle competition entry — probabilistic prediction system for the 2026 NCAA M
 - **Metric:** Brier score / log-loss on tournament outcome probabilities
 - **Outcome:** Outperformed public betting odds baseline on held-out tournament years
 
-> 📌 Add your final Kaggle leaderboard score and ranking here.
+> Final Score: Outcome not determined yet
 
 ---
 
@@ -85,4 +85,4 @@ python models/evaluate.py --test-year 2024
 
 > - Elo ratings became more predictive than seed alone from the Sweet 16 onwards
 > - Upsets in the first round were best predicted by strength-of-schedule differential, not seed gap
-> - The model assigned X% win probability to the eventual champion before the tournament began
+> - The model assigned X% win probability to the eventual champion before the tournament began (to add after tournament)
