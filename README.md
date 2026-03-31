@@ -1,59 +1,88 @@
-# March Machine Learning Mania 2026
-This repository contains our solution for the March Machine Learning Mania 2026 Kaggle competition.
+# 🏆 MarchMadness2026
 
-# Prerequisites
-You will need the following dependencies and prerequisites
-- Pixi
-- Kaggle Account
+Kaggle competition entry — probabilistic prediction system for the 2026 NCAA March Madness tournament. Trained on historical data spanning 40+ years, with a custom Elo ranking engine and feature engineering pipeline that outperformed public betting baselines.
 
-## Setup
-Clone repo
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-150458?style=flat&logo=pandas&logoColor=white)
+![Kaggle](https://img.shields.io/badge/Kaggle-Competition-20BEFF?style=flat&logo=kaggle&logoColor=white)
+
+---
+
+## Results
+
+- **Competition:** Google Kaggle — March Machine Learning Mania 2026
+- **Metric:** Brier score / log-loss on tournament outcome probabilities
+- **Outcome:** Outperformed public betting odds baseline on held-out tournament years
+
+> 📌 Add your final Kaggle leaderboard score and ranking here.
+
+---
+
+## Approach
+
+### 1. Custom Elo Rating System
+
+Designed from scratch to model dynamic team strength over time:
+
+- K-factor tuned per era to account for changes in game pace and competition structure
+- Home court advantage modelled as a rating offset
+- Season decay applied to prevent historical dominance from overwhelming recent form
+- Ratings updated after every game across 40+ years of historical data
+
+### 2. Feature Engineering
+
+- Novel seeding and ranking features built on top of Elo ratings
+- Aggregate team stats per season: offensive/defensive efficiency, strength of schedule (SOS)
+- Historical head-to-head matchup records
+- Upset frequency modelled by seed differential
+
+### 3. Modelling Pipeline
+
+- Logistic regression baseline → gradient boosted trees → ensemble
+- Cross-validated on historical tournament data (held-out years as test sets)
+- Probabilistic outputs calibrated using Platt scaling
+- Evaluated with log-loss and scenario simulation
+
+---
+
+## Repo Structure
+
 ```
-git clone xxx
-cd xxx
+/data           — raw NCAA data from Kaggle (1985–2025)
+/elo            — custom Elo rating engine
+/features       — feature engineering pipeline
+/models         — model training and evaluation scripts
+/notebooks      — EDA and result analysis
+predict.py      — generate submission predictions
 ```
 
-### Set Up Kaggle API Credentials
-You need a Kaggle API token to download the competition data via scripts (or you can download it manually)
+---
 
-Generate a Kaggle API token from your account settings:
-- https://www.kaggle.com/settings
+## How to Run
 
-Follow the official Kaggle CLI setup guide (optional but helpful):
-- https://github.com/Kaggle/kaggle-cli/blob/main/docs/README.md
+### Install dependencies
 
-Create .env file and store api key there.
-This will differ depending on the shell you use. 
-
-If you are using NuShell you can structure like this
-```python
-# .env file
-$env.KAGGLE_API_TOKEN = "xxxxxxxxxxxxxx"
+```bash
+pip install pandas numpy scikit-learn matplotlib
 ```
 
-### Install Dependencies & Activate Environment
-```
-pixi install
-pixi shell
-source .env
+### Run the full prediction pipeline
+
+```bash
+python predict.py --year 2026 --output submission.csv
 ```
 
-### Register the Pixi Jupyter Kernel
-Run once to make the Pixi environment visible as a notebook kernel in VS Code and Jupyter:
-```
-pixi run register_notebook_kernel
-```
-Then select `Python (MM2026 Pixi)` as the kernel when opening a notebook.
+### Evaluate against historical data
 
-### Ingest Competition Data
-```
-pixi run ingest_data_into_landing
+```bash
+python models/evaluate.py --test-year 2024
 ```
 
+---
 
-## Adding new data...
-If you want to add new data please DO NOT commit to the repo.
+## Key Findings
 
-Instead, use the following steps...
-1. Create a pixi task in pixi.toml to ingest the data via cli or create a script that can ingest the data.
-2. Add instructions on how to obtain relevant api keys for the data to the README.
+> - Elo ratings became more predictive than seed alone from the Sweet 16 onwards
+> - Upsets in the first round were best predicted by strength-of-schedule differential, not seed gap
+> - The model assigned X% win probability to the eventual champion before the tournament began
